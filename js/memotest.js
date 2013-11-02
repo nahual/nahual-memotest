@@ -13,7 +13,6 @@ Tupla.prototype.paint = function()
 
 };
 
-//REPENSAR POSICIONES DISPONIBLES
 function Tablero() {
 
     this.tuplas=[];
@@ -21,31 +20,17 @@ function Tablero() {
 
     //constructor
     for (var i=0; i < MAX_IMAGENES; i++) {
-        this.tuplas.push(new Tupla(i, getPosicionDisponible(), getPosicionDisponible()));
+        var pos1 = getPosicionDisponible();
+        var pos2 = getPosicionDisponible();
+        console.log(pos1 + " | " + pos2 + " | tupla: " + i);
+        this.tuplas.push(new Tupla(i, pos1, pos2));
     }
 
-    function rearrangePosicionesDisponibles() {
-        var newPosicionesDisponibles = [];
-        var j = 0;
-        for (var i=0; posicionesDisponibles < posicionesDisponibles.length; i++) {
-            if (posicionesDisponibles[i]) {
-                newPosicionesDisponibles[j] = posicionesDisponibles
-            }
-        }
-    }
 
     function getPosicionDisponible() {
-        debugger;
-        var posicionDisponible = false;
-        var posicion;
-        while (!posicionDisponible) {
-            posicion = getRandomInt(0, posicionesDisponibles.length);
-            if (posicionesDisponibles[posicion]) {
-                posicionDisponible = true;
-                posicionesDisponibles[posicion] = false;
-                posicionesDisponibles = rearrangePosicionesDisponibles();
-            }
-        }
+        var idx = getRandomInt(0, posicionesDisponibles.length - 1);
+        var posicion = posicionesDisponibles[idx];
+        posicionesDisponibles.splice(idx, 1);
         return posicion;
     }
 
@@ -56,8 +41,8 @@ function Tablero() {
     function initPosicionesDisponibles() {
         var posicionesDisponibles = [];
         for (var i = 0; i < MAX_IMAGENES; i++) {
-            posicionesDisponibles[i] = true;
-            posicionesDisponibles[i + MAX_IMAGENES] = true;
+            posicionesDisponibles[i] = i;
+            posicionesDisponibles[i + MAX_IMAGENES] = i + MAX_IMAGENES;
         }
         return posicionesDisponibles;
     }
