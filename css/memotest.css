@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(154,170,71);
+}
+
 .logo {
     background: url('../img/Nahual.jpg') no-repeat center;
     display:inline-block;
@@ -11,16 +15,30 @@ h1 > span {
     vertical-align: middle;
 }
 h1 {
-    margin-left: 10px;
-    height:50px;
+    font-size: 16px;
+    margin: 10px;
+    height:40px;
     color: #ffffff;
-    background-color: rgb(154,170,71);
 }
-h2 {
-    padding-left: 15px;
-    vertical-align: middle;
-    margin-left: 10px;
-    height:50px;
-    color: #ffffff;
-    background-color: rgb(173,218,112);
+
+
+/***** Fichas ********/
+
+#memotestContainer {
+    width: 70%;
+    margin-left: 15%;
+    height: 600px;
+    text-align: center;
+
+}
+
+.ficha {
+    display: inline;
+}
+
+.ficha img {
+    width: 100px;
+    height: 135px;
+    border: 1px solid;
+
 }
