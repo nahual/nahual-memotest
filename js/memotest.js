@@ -47,6 +47,7 @@ Ficha.prototype.onclick = function() {
                 setTimeout(function() {
                     self.getTablero().procesarJugada();
                     self.getTablero().bloqueado = false;
+                    self.getTablero().procesarFinDelJuego();
                 }, TIEMPO_EXPOSICION_TUPLA)
             }
         }
@@ -76,6 +77,7 @@ function Tupla(idxImagen, pos1, pos2, tablero) {
     this.ficha2= new Ficha(idxImagen, pos2, this);
     this.tablero = tablero;
     this.idx = idxImagen;
+    this.revelada = false;
 }
 
 Tupla.prototype.getTablero = function() {
@@ -94,6 +96,7 @@ Jugada.prototype.procesarJugada = function() {
         } else {
             this.ficha1.revelada = true;
             this.ficha2.revelada = true;
+            this.ficha1.tupla.revelada = true;
         }
     }
 }
@@ -143,15 +146,25 @@ Tablero.prototype.newJugada = function(ficha) {
 }
 
 Tablero.prototype.procesarJugada = function() {
-    debugger;
     this.jugadaActual.procesarJugada();
     if (this.jugadaActual.ficha2 != null) {
         this.jugadaActual = null;
     }
 }
 
+Tablero.prototype.procesarFinDelJuego = function() {
+    for (var i=0; i < this.tuplas.length; i++ ) {
+        if (!this.tuplas[i].revelada) {
+            return false;
+        }
+    }
+    $("#botonMezclar").show();
+}
+
 Tablero.prototype.paint = function()
 {
+    $(".fila").html("");
+
     var fichasOrdenadas = [];
     for (var i=0; i < this.tuplas.length; i++ ) {
         fichasOrdenadas[this.tuplas[i].ficha1.posicion] = this.tuplas[i].ficha1;
@@ -169,5 +182,9 @@ Tablero.prototype.paint = function()
 function initMemotest() {
     var tablero = new Tablero();
     tablero.paint();
+    $("#botonMezclar").click(function() {
+        tablero = new Tablero();
+        tablero.paint();
+    });
 }
 
