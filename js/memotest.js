@@ -4,8 +4,8 @@ const VELOCIDAD_EFECTO_SWAP=60;
 const TIEMPO_EXPOSICION_TUPLA=1500;
 
 
-function Ficha(idxImagen, posicion, tupla) {
-    this.imagen = "img/" + (idxImagen + 1) + ".JPG";
+function Ficha(imagen, posicion, tupla) {
+    this.imagen = imagen;
     this.posicion = posicion;
     this.isFichaOculta = true;
     this.revelada = false;
@@ -73,8 +73,11 @@ Ficha.prototype.swapImagen = function() {
 
 function Tupla(idxImagen, pos1, pos2, tablero) {
     //una tupla va a tener dos posiciones en el tablero con la misma imágen
-    this.ficha1= new Ficha(idxImagen, pos1, this);
-    this.ficha2= new Ficha(idxImagen, pos2, this);
+    var imagen = "img/" + (idxImagen + 1) + ".JPG";
+    var preloadedImg = new Image();
+    preloadedImg.src = imagen;
+    this.ficha1= new Ficha(imagen, pos1, this);
+    this.ficha2= new Ficha(imagen, pos2, this);
     this.tablero = tablero;
     this.idx = idxImagen;
     this.revelada = false;
